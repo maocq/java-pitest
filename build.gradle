@@ -5,14 +5,16 @@ buildscript {
 		sonarVersion = '4.4.1.3373'
 		jacocoVersion = '0.8.11'
         lombokVersion = '1.18.30'
-	}
+        pitestVersion = '1.15.0'
+    }
 }
 
 plugins {
 	id 'co.com.bancolombia.cleanArchitecture' version "${cleanArchitectureVersion}"
 	id 'org.springframework.boot' version "${springBootVersion}" apply false
 	id 'org.sonarqube' version "${sonarVersion}"
-	id 'jacoco'
+    id 'info.solidsoft.pitest' version "${pitestVersion}" apply false
+    id 'jacoco'
 }
 
 sonar {

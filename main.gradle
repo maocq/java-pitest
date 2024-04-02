@@ -6,6 +6,8 @@ allprojects {
     }
 }
 
+apply plugin: 'info.solidsoft.pitest.aggregator'
+
 subprojects {
     apply plugin: 'java'
     apply plugin: 'jacoco'
@@ -54,6 +56,21 @@ subprojects {
         }
     }
 
+    if (project.name != 'model' & project.name != 'app-service' & project.name != 'util') {
+        apply plugin: 'info.solidsoft.pitest'
+        pitest {
+            targetClasses = ['co.com.bancolombia.*']
+            verbose = true
+            outputFormats = ['XML', 'HTML']
+            threads = 8
+            exportLineCoverage = true
+            timestampedReports = false
+            //mutators = ['STRONGER', 'DEFAULTS']
+            fileExtensionsToFilter.addAll('xml', 'orbit')
+            junit5PluginVersion = '0.15'
+            failWhenNoMutations = false
+        }
+    }
 }
 
 jacoco {
